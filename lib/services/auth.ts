@@ -28,4 +28,13 @@ export const authService = {
   getProfile: () => api.get<ProfileResponse>("/auth/profile"),
 
   logout: () => api.post("/auth/logout"),
+
+  generate2FA: async () =>
+    api.post<{ qrCode: string; secret: string }>("/auth/2fa/generate"),
+
+  enable2FA: async ({ code }: { code: string }) =>
+    api.post("/auth/2fa/enable", { code }),
+  disable2FA: async () => api.post("/auth/2fa/disable"),
+  verify2FA: async ({ code }: { code: string }) =>
+    api.post("/auth/2fa/verify", { code }),
 };

@@ -6,7 +6,7 @@ import { isJwtValid } from "@/lib/jwt";
 const protectedPaths = ["/dashboard", "/profile"];
 
 // Paths that should NOT be accessible when already authenticated
-const authPaths = ["/login", "/register"];
+const authPaths = ["/login", "/register", "/verify-2fa"];
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -49,5 +49,3 @@ export function middleware(req: NextRequest) {
 export const config = {
   matcher: ["/dashboard/:path*", "/profile/:path*", "/login", "/register"],
 };
-
-

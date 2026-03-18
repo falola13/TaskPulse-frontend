@@ -6,6 +6,7 @@ export interface AuthResponse {
   token: string;
   user: { id: string; email: string; firstName: string; lastName: string };
   message: string;
+  twoFaRequired?: boolean;
 }
 
 export interface RegisterDto {
@@ -25,5 +26,6 @@ export interface ProfileResponse {
     firstName: string;
     lastName: string;
     imageUrl: string | null;
+    isTwoFAEnabled: boolean;
   };
 }

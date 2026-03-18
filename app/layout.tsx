@@ -29,7 +29,7 @@ export default async function RootLayout({
         <Providers>
           {/* Initialize client auth store from server-side JWT on first render */}
           <AuthStoreInitializer loggedIn={loggedIn} />
-          <div className="h-screen overflow-hidden">
+          <div className="h-screen overflow-hidden ">
             <Navbar />
 
             <main className="h-full overflow-y-auto">{children}</main>

@@ -11,7 +11,6 @@ import FormError from "../ui/FormError";
 import { handleError } from "@/utils/errorHandler";
 import { useRouter } from "next/navigation";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import Link from "next/link";
 
 const formSchema = z.object({
   email: z.email("Invalid Email Address"),
@@ -43,7 +42,11 @@ const LoginForm = () => {
     loginMutation.mutate(data, {
       onSuccess: (res) => {
         toast.success(res.data.message);
-        router.push("/dashboard");
+        if (res.data.twoFaRequired === true) {
+          router.replace("/verify-2fa");
+        } else {
+          router.push("/dashboard");
+        }
       },
       onError: (err) => {
         console.log(err);
@@ -93,18 +96,7 @@ const LoginForm = () => {
           )
         }
       />
-      <p className="text-sm text-gray-500">
-        Do you not have an account?{" "}
-        <Link href="/register" className="text-secondary underline">
-          Create an account
-        </Link>
-      </p>
-      <p className="text-sm text-gray-500">
-        Forgot your password?{" "}
-        <Link href="/forgot-password" className="text-secondary underline">
-          Reset password
-        </Link>
-      </p>
+
       <Button
         isLoading={loginMutation.isPending}
         type="submit"
@@ -112,6 +104,34 @@ const LoginForm = () => {
       >
         Login
       </Button>
+
+      {/* Divider */}
+      <div className="flex items-center my-4 ">
+        <div className="grow border-t border-gray-300"></div>
+        <span className="text-gray-500 text-sm">Or</span>
+        <div className="grow border-t border-gray-300"></div>
+      </div>
+
+      {/* Social Login Buttons */}
+      <div className="flex flex-col space-y-2">
+        <a href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}>
+          <Button type="button" className="bg-red-500 hover:bg-red-600 w-full">
+            Login with Google
+          </Button>
+        </a>
+        <Button
+          type="button"
+          className="bg-black hover:bg-gray-800 w-full"
+          onClick={() => {
+            const redirect = encodeURIComponent(
+              `${window.location.origin}/profile`,
+            );
+            window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/github?redirect_uri=${redirect}`;
+          }}
+        >
+          Login with Github
+        </Button>
+      </div>
     </form>
   );
 };
