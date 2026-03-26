@@ -8,7 +8,7 @@ const protectedPaths = ["/dashboard", "/profile"];
 // Paths that should NOT be accessible when already authenticated
 const authPaths = ["/login", "/register", "/verify-2fa"];
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const isProtected = protectedPaths.some((p) => pathname.startsWith(p));

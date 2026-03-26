@@ -68,7 +68,9 @@ const RegisterForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-4 w-full max-w-2xl"
     >
-      <h2 className="text-2xl font-bold mb-2 ">Create your Account</h2>
+      <h2 className="text-2xl font-bold mb-2 text-zinc-900 dark:text-white">
+        Create your account
+      </h2>
       {serverError && <FormError message={serverError} />}
       <p className="text-sm text-gray-500 mb-4">
         Please fill in the details below to create your account
@@ -113,6 +115,8 @@ const RegisterForm = () => {
       >
         {registerMutation.isPending ? "Creating Account..." : "Register"}
       </Button>
+
+      {/* Navigation is handled by AuthWrapper mini-navbar */}
     </form>
   );
 };

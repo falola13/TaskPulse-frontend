@@ -1,10 +1,15 @@
 import Image from "next/image";
+import Link from "next/link";
 
 type AuthWrapperProps = {
   children: React.ReactNode;
+  mode?: "login" | "register";
 };
 
-const AuthWrapper = ({ children }: AuthWrapperProps) => {
+const AuthWrapper = ({ children, mode }: AuthWrapperProps) => {
+  const switchHref = mode === "login" ? "/register" : "/login";
+  const switchLabel = mode === "login" ? "Create account" : "Sign in";
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
       {/* Background: subtle gradient + soft pattern */}
@@ -31,6 +36,29 @@ const AuthWrapper = ({ children }: AuthWrapperProps) => {
       />
 
       <div className="w-full max-w-md relative">
+        {/* Mini navbar for auth pages */}
+        <div className="mb-4 flex items-center justify-between px-1">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 rounded-full px-2 py-1 text-sm font-semibold text-zinc-700 hover:text-zinc-900 hover:bg-black/5 dark:text-zinc-200 dark:hover:text-white dark:hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/10 dark:focus-visible:ring-white/20"
+            aria-label="Go to home"
+          >
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/5 dark:bg-white/10 text-zinc-800 dark:text-white">
+              TP
+            </span>
+            <span>Home</span>
+          </Link>
+
+          {mode ? (
+            <Link
+              href={switchHref}
+              className="inline-flex items-center rounded-full border border-zinc-200/80 bg-white/70 px-4 py-2 text-sm font-semibold text-zinc-800 shadow-sm shadow-zinc-200/30 hover:bg-white transition-colors dark:border-zinc-700/80 dark:bg-zinc-900/70 dark:text-white dark:hover:bg-zinc-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/10 dark:focus-visible:ring-white/20"
+            >
+              {switchLabel}
+            </Link>
+          ) : null}
+        </div>
+
         {/* Card: clean with subtle border and accent */}
         <div
           className="relative bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-zinc-200/80 dark:border-zinc-700/80 rounded-2xl shadow-xl shadow-zinc-200/50 dark:shadow-black/20 p-8 sm:p-10 ring-1 ring-zinc-100 dark:ring-zinc-800/50 overflow-hidden

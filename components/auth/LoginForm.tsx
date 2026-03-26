@@ -11,6 +11,7 @@ import FormError from "../ui/FormError";
 import { handleError } from "@/utils/errorHandler";
 import { useRouter } from "next/navigation";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import Image from "next/image";
 
 const formSchema = z.object({
   email: z.email("Invalid Email Address"),
@@ -63,12 +64,12 @@ const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-4 w-full max-w-2xl"
     >
-      <h2 className="text-2xl font-bold mb-2 text-white">
-        Login into your Account
+      <h2 className="text-2xl font-bold mb-2 text-zinc-900 dark:text-white">
+        Login to your account
       </h2>
       {serverError && <FormError message={serverError} />}
       <p className="text-sm text-gray-500 mb-4">
-        Please fill in the details below to login into your account
+        Please fill in the details below to log in.
       </p>
 
       <Input
@@ -112,16 +113,27 @@ const LoginForm = () => {
         <div className="grow border-t border-gray-300"></div>
       </div>
 
-      {/* Social Login Buttons */}
-      <div className="flex flex-col space-y-2">
-        <a href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}>
-          <Button type="button" className="bg-red-500 hover:bg-red-600 w-full">
-            Login with Google
-          </Button>
+      {/* Social login — brand logos */}
+      <div className="flex flex-col gap-3">
+        <a
+          href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}
+          className="flex w-full items-center justify-center gap-3 rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm font-semibold text-zinc-800 shadow-sm transition hover:bg-zinc-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 dark:focus-visible:ring-zinc-500"
+          aria-label="Sign in with Google"
+        >
+          <Image
+            src="/oauth/google.svg"
+            alt=""
+            width={22}
+            height={22}
+            className="shrink-0"
+            unoptimized
+          />
+          <span>Sign in with Google</span>
         </a>
-        <Button
+        <button
           type="button"
-          className="bg-black hover:bg-gray-800 w-full"
+          className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-xl border border-[#24292f] bg-[#24292f] px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1f2328] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+          aria-label="Sign in with GitHub"
           onClick={() => {
             const redirect = encodeURIComponent(
               `${window.location.origin}/profile`,
@@ -129,9 +141,19 @@ const LoginForm = () => {
             window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/github?redirect_uri=${redirect}`;
           }}
         >
-          Login with Github
-        </Button>
+          <Image
+            src="/oauth/github.svg"
+            alt=""
+            width={22}
+            height={22}
+            className="shrink-0"
+            unoptimized
+          />
+          <span>Sign in with GitHub</span>
+        </button>
       </div>
+
+      {/* Navigation is handled by AuthWrapper mini-navbar */}
     </form>
   );
 };

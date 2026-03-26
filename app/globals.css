@@ -1,3 +1,150 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --primary: #1f2937;
+  --secondary: #ff5a5f;
+  --accent: #ff8a4c;
+  --success: #34a853;
+
+  --black: #202124;
+  --white: #ffffff;
+
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --sidebar-bg: rgba(11, 17, 32, 0.9);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+
+  --color-black: var(--black);
+  --color-white: var(--white);
+
+  --color-glass-border: var(--glass-border);
+  --color-sidebar-bg: var(--sidebar-bg);
+
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Chromium/Safari scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+@import "tailwindcss";
+
+:root {
+  /* Base theme */
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Google Material Colors */
+  --primary: #1f2937;
+  --secondary: #ff5a5f;
+  --accent: #ff8a4c;
+  --success: #34a853;
+
+  /* Neutrals */
+  --black: #202124;
+  --white: #ffffff;
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --sidebar-bg: rgba(11, 17, 32, 0.9);
+}
+
+@theme inline {
+  /* Core colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Brand colors */
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+
+  /* Neutral colors */
+  --color-black: var(--black);
+  --color-white: var(--white);
+  --color-sidebar-bg: var(--sidebar-bg);
+  /* Fonts */
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Chromium/Safari scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
 /* @import "tailwindcss";
 
 :root {
@@ -40,6 +187,7 @@ body {
   /* Neutrals */
   --black: #202124;
   --white: #ffffff;
+  --glass-border: rgba(255, 255, 255, 0.07);
 }
 
 @theme inline {
@@ -56,6 +204,7 @@ body {
   /* Neutral colors */
   --color-black: var(--black);
   --color-white: var(--white);
+  --color-glass-border: var(--glass-border);
 
   /* Fonts */
   --font-sans: var(--font-inter);
@@ -79,4 +228,24 @@ body {
 
 button {
   cursor: pointer;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
