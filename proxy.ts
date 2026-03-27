@@ -21,6 +21,25 @@ export function proxy(req: NextRequest) {
 
   const accessToken = req.cookies.get("access_token")?.value;
   const isValid = isJwtValid(accessToken);
+  const tokenFromQuery = req.nextUrl.searchParams.get("token");
+  const isOAuthTokenValid = isJwtValid(tokenFromQuery);
+
+  // OAuth callback flow: backend redirects with ?token=...
+  // Persist it as frontend cookie before route-guard checks redirect to /login.
+  if (isProtected && !isValid && tokenFromQuery && isOAuthTokenValid) {
+    const cleanedUrl = req.nextUrl.clone();
+    cleanedUrl.searchParams.delete("token");
+    cleanedUrl.searchParams.delete("message");
+
+    const response = NextResponse.redirect(cleanedUrl);
+    response.cookies.set("access_token", tokenFromQuery, {
+      path: "/",
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 60 * 60 * 24, // 1 day
+    });
+    return response;
+  }
 
   // No/invalid token
   if (!isValid) {
@@ -47,5 +66,11 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*", "/login", "/register"],
+  matcher: [
+    "/dashboard/:path*",
+    "/profile/:path*",
+    "/login",
+    "/register",
+    "/verify-2fa",
+  ],
 };
